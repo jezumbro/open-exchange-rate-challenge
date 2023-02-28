@@ -2,8 +2,10 @@ import pytest
 from flask.testing import FlaskClient
 
 from app import app
+from currencies import Currencies, Currency
 from listing.api import convert_request_to_new_listing
 from listing.model import Listing
+from markets import Markets
 from open_exchange import get_rate_converter
 
 
@@ -64,3 +66,14 @@ def simple_listing():
         "currency": "USD",
         "market": "san-francisco",
     }
+
+
+@pytest.fixture
+def listing():
+    return Listing(
+        id=0,
+        title="some title",
+        base_price=100,
+        currency=Currencies.get_by_code("USD"),
+        market=Markets.get_by_code("san-francisco"),
+    )

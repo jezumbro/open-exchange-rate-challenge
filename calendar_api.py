@@ -22,7 +22,7 @@ def paris_calendar(dt: date) -> float:
     return 1
 
 
-CALENDARS = {
+calendar_lookup = {
     Markets.PARIS: paris_calendar,
     Markets.LISBON: paris_calendar,
     Markets.SAN_FRANCISCO: san_fran_calendar,
@@ -30,7 +30,7 @@ CALENDARS = {
 
 
 def build_calendar(listing: Listing, currency_factor: float, code: str):
-    calendar_multiplier = CALENDARS.get(listing.market.code, default_calendar)
+    calendar_multiplier = calendar_lookup.get(listing.market.code, default_calendar)
     start = datetime.now().date()
     for day in range(365):
         dt = start + timedelta(days=day)
